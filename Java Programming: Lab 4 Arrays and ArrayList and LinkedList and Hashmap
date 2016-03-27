@@ -1,0 +1,198 @@
+Java Programming: Lab 4
+Arrays and ArrayList and LinkedList and Hashmap
+
+1. You should complete the Essentials problems in class. Paste your code into this worksheet as directed and answer any questions in italics. At the end of class, save this worksheet and upload it to this lab's dropbox. If you have not finished, upload the code that you have written at the end of class. You should finish the remaining Essential problems outside of class.
+
+2. Outside of class, work on as many Advanced problems as you can. Usually you should expect to spend 2-3 hours on these problems. Paste your code into this worksheet as directed and answer any questions in italics.  Save your work and upload this worksheet to this lab's dropbox before the deadline.
+
+You should always comment all of your code!
+
+You are encouraged to work with other students, and to give others assistance if they need. And, please ask the instructor if you have any questions.
+
+Essentials – Work on these in class and upload at the end of class
+
+Problem 1, ArrayList:
+
+This is the main method of a program that creates an ArrayList containing 3 breakfast cereals.
+
+	public static void main(String[] args) {
+	
+		ArrayList cereals = new ArrayList();
+		cereals.add("Special K");
+		cereals.add("Captain Crunch");
+		cereals.add("Oatmeal");			
+		
+	}
+
+•	Please remove Oatmeal from the ArrayList.
+•	Please add the name of your favorite breakfast food to the ArrayList.
+•	Add “Cornflakes” to the ArrayList.
+•	Display all of the cereals in the ArrayList.
+•	Print a message if the ArrayList contains “Special K”. Print a different message if it does not contain "Special K".
+•	Bonus non-programming question: what does Captain Crunch have to do with computer hacking?
+
+Paste your Java code here:
+
+Problem 2, Array:
+
+You are a recycling truck driver.  You’ll like to collect some statistics on how much each of the houses on a certain street is recycling. 
+
+Each house has to use crates for their recycling. This street is a little unusual since it only has 8 houses, and the city planner must have been a computer programmer, since the house numbers are 0, 1, 2, 3, 4, 5, 6, 7.   
+
+(Hint – the house numbers are the same as array element indexes.)  
+
+Write a program that asks for the number of recycling crates set out by each house. You should store this data in an array.
+
+•	How many recycling crates, in total, from all the houses on the street?
+•	What is the largest number of crates set out by any house?
+•	What is the smallest number of crates set out by any house?
+•	Which house had the most recycling? Display that house number.
+
+Paste your Java code here:
+
+
+Problem 3, ArrayList:
+
+Start with your code from the problem above. 
+
+What if most houses had 1 or 2 crates, but both house number 6 and house number 7 set out 4 crates each?
+
+Which one would you choose as the house with the most recycling? A better solution would be to display all of the houses with the joint highest number of crates. 
+
+Use an ArrayList or LinkedList to help you display a report with the house or houses with the equal most recycling.
+
+Paste your Java code here:
+
+
+Problem 4: 
+
+You are a classic rock radio DJ. Like all good classic rock DJs, you only have 4 records: Stairway to Heaven, Ace of Spades, Dark Side of the Moon, and Hotel California. (It’s important to make your listeners feel safe and comfortable with some familiar music.) 
+
+As a DJ, you feel it’s important to be able to play your songs in any order. But, your problem is, you want to play all the songs roughly the same amount, and you don’t want to play the same song twice in a row. Write a program which helps you choose which song to play, and keeps track of how many times you’ve played each song.  
+
+Use a HashMap to store data in this program. Other variables and data structures may help too.
+
+Perhaps you’ll use a loop that displays the choice of songs, lets you choose, checks that it’s not the one you just played, and also checks that you are not overplaying any of the songs.  You get to define “overplaying”. 
+
+("Play" a song by printing a message such as “Now Playing: Hotel California”.)
+
+Paste your Java code here:
+
+
+
+Advanced 
+
+
+Finish any incomplete Essentials problems first.
+
+Problem 1:
+
+The handy thing about ArrayLists and LinkedLists is that you can store anything in them. The problem with this is getting the things out. How do you know what type of Object you have? What if you store a load of Strings, then you want to get them out and test if they equal another String, ignoring case? (by calling the equalsIgnoreCase method on all of them).
+
+Unfortunately, this doesn’t work.
+
+
+	//Create a LinkedList of languages we know
+	LinkedList languages = new LinkedList();
+	//And add any type of Object we like
+	languages.add("Python");
+	languages.add("Java");
+	languages.add("C#");
+	//Test if we know Python 
+//(Should also work for "python" and "PYthon"...)
+	for (Object lan : languages) {
+		if (lan.equalsIgnoreCase("Python")){ 
+			System.out.println("You know Python");
+		}
+	}
+
+Why doesn't this work? Because the variable lan is an Object. Object doesn’t have an equalsIgnoreCase method.
+
+We can fix this by forcing lan to become a String. This is known as “casting”. You can cast a variable from one type to another by using the type we want it to become in parenthesis, ( ), in front of it. Let’s try that,
+
+	//Create a LinkedList of languages we know
+	LinkedList languages = new LinkedList();
+	//And add any type of Object we like
+	languages.add("Python");
+	languages.add("Java");
+	languages.add("C#");
+	//Test if we know Python 
+//(Should also work for "python" and "PYthon"...)
+	for (Object lan : languages) {
+		String lanString = (String)lan; //cast to a String
+		if (lanString.equalsIgnoreCase("Python")){ 
+			System.out.println("You know Python");
+		}
+	}
+
+
+This compiles and runs. Unfortunately, since you can add any type of data to a LinkedList, nothing stops someone accidentally adding an Integer, or an array of Strings, or something else, to the languages LinkedList.  Try running this code – what happens? 
+
+
+	//Create a LinkedList of languages we know
+	LinkedList languages = new LinkedList();
+	//And add any type of Object we like
+	languages.add("Python");
+	languages.add("Java");
+	languages.add("C#");
+	languages.add(9); //Add an Integer
+
+	//Test if we know Python 
+//(Should also work for "python" and "PYthon"...)
+	for (Object lan : languages) {
+		String lanString = (String)lan; //cast to a String
+		if (lanString.equalsIgnoreCase("Python")){ 
+			System.out.println("You know Python");
+		}
+	}
+
+
+And your program crashes. We’d like to avoid this kind of error if possible. One of the things that makes Java programs more robust than, let’s say, Python (which doesn’t make you be as specific about types, so is more flexible, but you, the programmer, have to be more careful to avoid this kind of error) is that the compiler can identify type errors and make you fix them before the program will run.  But that's not happening here.
+
+Generic Types are Java’s solution to this problem. When you create a LinkedList (or Hashmap or ArrayList or many other types of data structure) you can specify that the LinkedList can only contain Strings.  Or, only items of any other type of your chouce. This is usually OK because most of the time, the lists you create tend to be all items of one type. Put the type in pointy brackets after the type of data structure you are creating, like this,
+
+
+	LinkedList<String> languages = new LinkedList<String>();
+	//Now can only add Strings
+	languages.add("Python");
+	languages.add("Java");
+	languages.add("C#");
+	languages.add(9);  //Compiler indicates error here
+					//Can’t add an int by mistake
+		
+	//Test if we know Python 
+//(Should also work for "python" and "PYthon"...)
+	for (String lan : languages) {
+		if (lan.equalsIgnoreCase("Python")){ 
+			System.out.println("You know Python");
+		}
+	}
+
+Notice the difference in the for loop? We can now specify that lan, the variable we use to hold each of the items in the languages LinkedList in turn, is a String. We don’t have to cast it any more, and we can call all of our useful String methods, and there will be no ClassCastException thrown if lan is unexpectedly an Integer – because now we can be sure lan will always be a String. 
+
+Delete the line that adds an int to the LinkedList and run the code. 
+
+For this problem: Go back to problem 1 and 3 and 4 and use Generic Types to enforce the data type stored in these data structures. 
+
+Some more code examples: An ArrayList which can only store Doubles,
+An ArrayList which stores String arrays
+A HashMap which stores String keys and int array values
+A LinkedList which stores File objects
+
+ArrayList<Double> numberList = new ArrayList<Double>();
+ArrayList<String[]> listOfArrays = new ArrayList<String[]>();
+HashMap<String, int[]> map = new HashMap<String, int[]>();
+LinkedList<File> languages = new LinkedList<File>();
+
+Use generic types for all of your data structures in the future. 
+
+Paste each of your revised Java programs back in the appropriate Essential sections.
+
+
+Problem 2:
+
+How can these data structures help the design of your Blackjack prototype, the one you worked on last week?
+
+What data structures could you use? Where can you use them in your code?
+
+Please paste your revised code here:
